@@ -1,0 +1,2 @@
+app: yarn start:dev
+api: yarn server:start

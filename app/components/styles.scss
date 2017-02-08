@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather:300,400,700|Roboto:400,700');
+
+$grey: #3A4145;
+$lightGrey: #f5f8fa;
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 18px;
+  letter-spacing: 0.01rem;
+}
+
+#container,
+.app {
+  width: 100%;
+  height: 100%;
+}
+
+p {
+  font-family: 'Merriweather', serif;
+  font-feature-settings: 'liga' 1, 'onum' 1, 'kern' 1;
+  font-size: 16px;
+  line-height: 26px;
+  margin-bottom: 30px;
+  font-weight: 300;
+  color: #3A4145;
+}
+
+a {
+  color: #4A4A4A;
+  transition: color 0.3s ease;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: black;
+}
+
+h1,h2,h3 {
+  // color: #4A4A4A;
+  color: #2E2E2E;
+  font-family: 'Roboto', sans-serif;
+  font-size: 36px;
+  line-height: 41px;
+  margin-bottom: 30px;
+}
+
+h2, h3 {
+  font-size: 26px;
+  margin-bottom: 18px;
+  letter-spacing: 0.04em;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  align-content: stretch;
+  min-width: 500px;
+  background-color: #fff;
+}
+
+header {
+  padding-bottom: 150px;
+  background-image: url('../assets/images/pull_up_back__0.jpg');
+  background-size: cover;
+
+  nav {
+    padding: 15px;
+    text-align: right;
+  }
+  nav figure {
+    background-color: #f5f8fa;
+    display: inline-block;
+    position: relative;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+
+
+    span {
+      color: rgba(0,0,0,0.5);
+      position: absolute;
+      top: 0; left: 0;
+      line-height: 50px;
+      text-align: center;
+      width: 50px;
+    }
+  }
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Roboto', sans-serif;
+  color: #BBC7CC;
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  font-weight: 300;
+  padding: 30px;
+
+  a {
+    text-decoration: none;
+    color: #BBC7CC;
+    font-weight: bold;
+
+    &:hover {
+      color: #BBC7CC;
+      border-bottom: #BBC7CC 1px solid;
+    }
+  }
+}
+
+.content {
+  flex: 1;
+  width: 90%;
+  min-width: 500px;
+  max-width: 1010px;
+  margin: -100px auto 0 auto;
+  background-color: #fff;
+  padding: 30px;
+  box-shadow: 0px 2px 1px 1px rgba(227,227,227,1);
+  opacity: 0.9;
+}
