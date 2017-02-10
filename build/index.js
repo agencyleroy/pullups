@@ -11,16 +11,13 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const URL = require('url').URL;
 
-const sequelize = new Sequelize('d4qg7aomb0qsif', 'cdfsfgjpobagtn', 'e7e18e45cef4a1853cec904344f232d6844bdfa88aa43767ab3696254a5a9342', {
-  host: 'ec2-54-75-248-193.eu-west-1.compute.amazonaws.com',
+console.log(process.env.DATABASE_SSL);
+const env = process.env.NODE_ENV || 'development';
+const config = require('../config/config.json')[env];
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'postgres',
-  dialectOptions: { ssl: true }
+  dialectOptions: { ssl: !!parseInt(process.env.DATABASE_USE_SSL) }
 });
-
-// const sequelize = new Sequelize('pullups', 'scrodde', '', {
-//   dialect: 'postgres',
-//   logging: console.log
-// });
 
 const Entry = sequelize.define('entry', {
   email: Sequelize.STRING,
@@ -30,18 +27,21 @@ const Entry = sequelize.define('entry', {
   type: Sequelize.STRING,
 });
 
+/**
+ * Authentication Strategies
+ * Google & JWT
+ */
 passport.use(new GoogleStrategy({
-  clientID: '606977829814-o8v2p0qhmd46smebhten5p09uiojsjon.apps.googleusercontent.com',
-  clientSecret: 'cazdmbrhCs8E6Ttu3rJgGK_O',
-  callbackURL: 'http://localhost:3000/auth/google/callback',
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: `${config.api.host}/auth/google/callback`,
   passReqToCallback: true
-},
-(req, accessToken, refreshToken, profile, next) => {
+}, (req, accessToken, refreshToken, profile, next) => {
   next(null, {
     email: profile.email,
     firstName: profile.name.givenName,
     lastName: profile.name.familyName,
-  })
+  });
 }));
 
 const jwtOptions = {
@@ -49,6 +49,7 @@ const jwtOptions = {
   issuer: 'accounts.examplesoft.com',
   audience: 'yoursite.net',
 };
+
 passport.use(new JwtStrategy(Object.assign(jwtOptions, {
   jwtFromRequest: ExtractJwt.fromExtractors([
     ExtractJwt.fromAuthHeader(),
@@ -58,27 +59,30 @@ passport.use(new JwtStrategy(Object.assign(jwtOptions, {
   done(null, jwtPayload);
 }));
 
+/**
+ * Express server setup
+ */
 const port = process.env.PORT || 3000;
 const app = express();
 
-// Use application-level middleware for common functionality, including
-// logging, parsing, and session handling.
 app.use(require('cors')());
 app.use(require('morgan')('combined'));
 app.use(require('body-parser').json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 
-// Authentication
+/**
+ * Authentication endpoints
+ */
 app.get('/auth/google', (req, res) => {
   const state = _.isEmpty(req.query.redirect) ? null : req.query.redirect;
-  passport.authenticate('google', { scope: ['email', 'profile'], prompt: 'consent select_account', state })(req, res);
+  passport.authenticate('google', { scope: ['email', 'profile'], prompt: 'consent select_account' })(req, res);
 });
 
 app.get('/auth/google/callback',
   passport.authenticate('google', {
     // successRedirect: '/',
-    failureRedirect: '/',
+    failureRedirect: `${config.app.host}/error`,
     session: false
   }),
   (req, res) => {
@@ -86,20 +90,28 @@ app.get('/auth/google/callback',
       audience: jwtOptions.audience,
       issuer: jwtOptions.issuer,
     });
-    const url = new URL(_.isEmpty(req.query.state) ? '/' : req.query.state);
+
+    console.log(`${config.app.host}${req.query.state}`);
+    const url = new URL(`${config.app.host}${req.query.state || ''}`);
     url.searchParams.set('token', token);
 
-    res.redirect(url.href);
+    res.redirect(url.toString());
   });
 
-// const requireAuthenticated = (req, res, next) => {
-//   if (!req.user) {
-//     return res.status(401).json({ error: 'not authenticated' });
-//   }
-//   return next(null, req);
-// };
+const requireAuthenticated = (req, res, next) => {
+  passport.authenticate('jwt', { session: false })((req, res) => {
+    if (!req.user) {
+      return res.status(401).json({ error: 'not authenticated' });
+    }
+    // next(null, req);
+  });
+};
 
-app.get('/api/entries', passport.authenticate('jwt', { session: false }), (req, res) => {
+/**
+ * API endpoints
+ */
+ app.get('/api/entries', passport.authenticate('jwt', { session: false }), (req, res) => {
+// app.get('/api/entries', (req, res) => {
   sequelize.sync()
     .then(() =>
       Entry.findAll({
@@ -116,7 +128,6 @@ app.get('/api/entries', passport.authenticate('jwt', { session: false }), (req, 
 });
 
 app.post('/api/entries', passport.authenticate('jwt', { session: false }), (req, res) => {
-
   sequelize.sync()
     .then(() =>
       Entry.create(Object.assign({}, req.body))
@@ -133,12 +144,19 @@ app.get('/api/users/me', passport.authenticate('jwt', { session: false }), (req,
   res.json({ data: req.user });
 });
 
-app.get('*', (req, res) => {
-  fs.readFile(path.join(__dirname, 'public', 'index.html'), 'utf-8', (err, data) => {
-    if (err) throw err;
-    res.send(data);
+
+/**
+ * Let the client app handle all other request...
+ *
+ */
+if (env === 'production') {
+  app.get('*', (req, res) => {
+    fs.readFile(path.join(__dirname, 'public', 'index.html'), 'utf-8', (err, data) => {
+      if (err) throw err;
+      res.send(data);
+    });
   });
-});
+}
 
 app.listen(port, () => {
   console.log(`listening on ${port}`);
