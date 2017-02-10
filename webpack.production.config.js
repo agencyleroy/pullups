@@ -60,7 +60,7 @@ module.exports = {
       },
       { test: /\.csv$/, include: path.resolve(__dirname, 'app'), exclude: /node_modules/, loader: 'dsv-loader' },
       { test: /\.yaml$/, include: path.resolve(__dirname, 'app'), exclude: /node_modules/, loader: 'json-loader!yaml-loader' },
-      { test: /\.json$/, include: path.resolve(__dirname, 'app'), exclude: /node_modules/, loader: 'json-loader' },
+      { test: /\.json$/, include: path.resolve(__dirname, '/'), exclude: /node_modules/, loader: 'json-loader' },
       { test: /\.jsx?$/, include: path.resolve(__dirname, 'app'), exclude: /node_modules/, loader: 'babel-loader' },
     ]
   },
