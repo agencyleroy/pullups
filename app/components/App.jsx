@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Route, Link, Redirect } from 'react-router-dom';
 import _ from 'lodash';
 
-import Leaderboard from './Leaderboard';
+import LeaderboardContainer from '../containers/LeaderboardContainer';
 import AddEntry from './AddEntry';
 import Login from './Login';
 
@@ -54,7 +54,7 @@ class App extends React.Component {
 
 
         <section className="content">
-          <Route exact path="/" component={Leaderboard} />
+          <Route exact path="/" component={LeaderboardContainer} />
           <Route exact path="/" component={AddEntry} />
           <Route path="/login" component={Login} />
         </section>

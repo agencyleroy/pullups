@@ -35,8 +35,4 @@ class Leaderboard extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  scores: state.scores
-});
-
-export default connect(mapStateToProps)(Leaderboard);
+export default Leaderboard;
