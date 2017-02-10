@@ -15,12 +15,13 @@ class AddEntry extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit.bind(this)} >
-        <div>
-          <input type="number" name="score" defaultValue={''} ref={(input) => { this.input = input; }} />
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+      <div className="add-entry">
+        <h2 className="add-entry__title">Submit your result</h2>
+        <form onSubmit={this.onSubmit.bind(this)} className="add-entry__form">
+          <input type="number" name="score" className="add-entry__input" defaultValue={''} ref={(input) => { this.input = input; }} placeholder="Write your result here" />
+          <button type="submit" className="add-entry__button">Add result</button>
+        </form>
+      </div>
     );
   }
 }
