@@ -41,9 +41,11 @@ class App extends React.Component {
           </div>
         </header>
 
-        <figure className="logged-in">
-          <div className="logged-in__image" style={{backgroundImage: 'url(/assets/images/martin.jpg)'}}></div>
-        </figure>
+        {(auth.isLoggedIn) &&
+          <figure className="logged-in">
+            <div className="logged-in__image" style={{backgroundImage: 'url(/assets/images/martin.jpg)'}}></div>
+          </figure>
+        }
 
         <section className="content">
           <Route exact path="/" component={Leaderboard} />

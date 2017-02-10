@@ -27,11 +27,11 @@ class Login extends React.Component {
   render() {
     const { auth } = this.props;
     return (
-      <div>
+      <div className="login">
         {auth.isLoggedIn &&
           <Redirect to="/" />
         }
-        <h4>Login</h4>
+        <h4 className="login__title">Login to get results</h4>
         <button onClick={this.login}>Login</button>
         <Route exact path="/login/callback" render={() => {
           return <h1>Callback</h1>;
