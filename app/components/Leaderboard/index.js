@@ -12,19 +12,18 @@ class Leaderboard extends React.Component {
   render() {
 
     const items = _.map(this.props.scores, (entry, ix) => {
-      return <tr key={ix}><td>{`${ix+1}.`}</td><td>{`${entry.firstName} ${entry.lastName}`}</td><td>{moment(entry.timestamp).format("D.M.YYYY")}</td><td>{entry.score}</td></tr>
+      return <tr key={ix}><td className="leaders__table__person"><div className="leaders__number" data-position={`${ix+1}`}>{`${ix+1}`}</div><div className="leaders__person"><div className="leaders__person__image"><div className="leaders__person__image__bg" style={{backgroundImage: 'url(/assets/images/martin.jpg)'}}></div></div><div className="leaders__person__name">{`${entry.firstName} ${entry.lastName}`}</div></div></td><td  className="leaders__table__score"><div className="leaders__score">{entry.score}</div></td><td className="leaders__table__date"><div className="leaders__date">{moment(entry.timestamp).format("D.M.YYYY")}</div></td></tr>
     });
 
     return (
-      <div>
-        <h1>Leaderboard</h1>
-        <table>
+      <div className="leaders">
+        <h1 className="leaders__title">Pullups</h1>
+        <table className="leaders__table">
           <thead>
             <tr>
-              <th>Position</th>
-              <th>Name</th>
-              <th>Date</th>
-              <th>Score</th>
+              <th className="leaders__table__person">Leader</th>
+              <th className="leaders__table__score">Score</th>
+              <th className="leaders__table__date">Date</th>
             </tr>
           </thead>
           <tbody>

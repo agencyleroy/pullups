@@ -11,6 +11,8 @@ import Login from './Login';
 
 import styles from './styles.scss';
 
+import Logo from './Logo';
+
 class App extends React.Component {
 
   render() {
@@ -32,12 +34,16 @@ class App extends React.Component {
         }
 
         <header className="header">
-          <nav>
-            <figure>
-              <span className="intials">{initials}</span>
-            </figure>
-          </nav>
+          <div className="header__logo">
+            <Logo />
+          </div>
+          <div className="header__bg">
+          </div>
         </header>
+
+        <figure className="logged-in">
+          <div className="logged-in__image" style={{backgroundImage: 'url(/assets/images/martin.jpg)'}}></div>
+        </figure>
 
         <section className="content">
           <Route exact path="/" component={Leaderboard} />
@@ -46,7 +52,7 @@ class App extends React.Component {
         </section>
 
         <footer>
-          <span>Made with &lsaquo;3 by <a target="_blank" href="https://www.agencyleroy.com">Agency Leroy</a></span>
+          <span>Made with &lsaquo;3 by <a target="_blank" href="http://www.agencyleroy.com">Agency Leroy</a></span>
           <span>Check me out on <a target="_blank" href="https://github.com/agencyleroy/pullups">Github</a></span>
         </footer>
       </div>

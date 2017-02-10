@@ -1,18 +1,23 @@
-@import url('https://fonts.googleapis.com/css?family=Merriweather:300,400,700|Roboto:400,700');
+@import url('https://fonts.googleapis.com/css?family=Merriweather:300,400,700|Roboto:400,700,900');
 
+$black: #1D2120;
 $grey: #3A4145;
 $lightGrey: #f5f8fa;
+$yellow: #F6AF37;
 
 body,
 html {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: $yellow;
 }
 
 body {
   font-size: 18px;
   letter-spacing: 0.01rem;
+  background-color: $yellow;
+  color: $black;
 }
 
 #container,
@@ -28,7 +33,7 @@ p {
   line-height: 26px;
   margin-bottom: 30px;
   font-weight: 300;
-  color: #3A4145;
+  color: $black;
 }
 
 a {
@@ -42,12 +47,14 @@ a:hover {
 }
 
 h1,h2,h3 {
-  // color: #4A4A4A;
-  color: #2E2E2E;
+  color: $black;
   font-family: 'Roboto', sans-serif;
   font-size: 36px;
   line-height: 41px;
   margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.085em;
+  font-weight: 900;
 }
 
 h2, h3 {
@@ -63,35 +70,82 @@ h2, h3 {
   align-items: stretch;
   align-content: stretch;
   min-width: 500px;
-  background-color: #fff;
+  background-color: transparent;
 }
 
-header {
+.header {
   padding-bottom: 150px;
-  background-image: url('../assets/images/pull_up_back__0.jpg');
-  background-size: cover;
-
-  nav {
-    padding: 15px;
-    text-align: right;
-  }
-  nav figure {
-    background-color: #f5f8fa;
+  text-align: center;
+  position: relative;
+  z-index: 1000;
+  &__logo {
     display: inline-block;
+    margin: auto;
+    position: relative;
+    top: 70px;
+  }
+  &__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: #1D2120;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background-image: url('../assets/images/pull_up_back__0.jpg');
+      background-size: cover;
+      background-position: center center;
+      opacity: 0.3;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      background-color: $yellow;
+      mix-blend-mode: multiply;
+    }
+  }
+}
+
+.logged-in {
+  position: fixed;
+  top: 30px;
+  right: 15px;
+  z-index: 9999;
+  &__image {
+    width: 60px;
+    height: 60px;
+    background-color: $black;
     position: relative;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
     overflow: hidden;
-
-
-    span {
-      color: rgba(0,0,0,0.5);
+    background-position: center center;
+    background-size: cover;
+    border: 2px solid #ffffff;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.2), 0px 0px 15px rgba(0,0,0,0.2);
+    &:after {
+      content: '';
       position: absolute;
-      top: 0; left: 0;
-      line-height: 50px;
-      text-align: center;
-      width: 50px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      background-color: $yellow;
+      mix-blend-mode: multiply;
+      border-radius: 50%;
     }
   }
 }
@@ -100,20 +154,21 @@ footer {
   display: flex;
   justify-content: space-between;
   font-family: 'Roboto', sans-serif;
-  color: #BBC7CC;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.03em;
-  font-weight: 300;
+  font-weight: 400;
   padding: 30px;
-
+  margin-top: 60px;
+  color: $yellow;
+  background-color: $black;
   a {
     text-decoration: none;
-    color: #BBC7CC;
-    font-weight: bold;
-
+    font-weight: 900;
+    color: $yellow;
     &:hover {
-      color: #BBC7CC;
-      border-bottom: #BBC7CC 1px solid;
+      color: $yellow;
+      text-decoration: underline;
+      text-decoration-skip: ink;
     }
   }
 }
@@ -121,11 +176,12 @@ footer {
 .content {
   flex: 1;
   width: 90%;
-  min-width: 500px;
-  max-width: 1010px;
+  max-width: 980px;
   margin: -100px auto 0 auto;
   background-color: #fff;
-  padding: 30px;
-  box-shadow: 0px 2px 1px 1px rgba(227,227,227,1);
-  opacity: 0.9;
+  border-radius: 2px;
+  position: relative;
+  z-index: 2000;
+  box-shadow: 0px 1px 2px rgba(0,0,0,0.2), 0px 0px 25px rgba(0,0,0,0.1);
+  display: block;
 }

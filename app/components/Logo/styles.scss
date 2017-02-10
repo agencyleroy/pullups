@@ -1,0 +1,33 @@
+$logoColor: #ffffff;
+
+.logo {
+  display: inline-block;
+  text-align: center;
+  &__icon {
+    padding-bottom: 15px;
+    svg {
+      width: 150px;
+      path {
+        fill: $logoColor;
+      }
+    }
+  }
+  &__name {
+    font-family: 'Roboto', sans-serif;
+    font-size: 90px;
+    line-height: 1em;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 900;
+    color: $logoColor;
+    padding-bottom: 15px;
+  }
+  &__slogan {
+    font-family: 'Merriweather', serif;
+    font-weight: 300;
+    font-size: 20px;
+    color: $logoColor;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+  }
+}
