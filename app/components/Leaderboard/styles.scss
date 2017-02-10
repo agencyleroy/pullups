@@ -11,12 +11,14 @@ $black: #1D2120;
 $yellow: #F6AF37;
 
 .leaders {
+  width: 100%;
   &__title {
     padding: 60px;
     margin: 0;
   }
   &__table {
     border-collapse: collapse;
+    width: 100%;
     th {
       font-family: 'Roboto', sans-serif;
       text-transform: uppercase;
