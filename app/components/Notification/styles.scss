@@ -1,0 +1,62 @@
+$notificationColor: #ffffff;
+
+.notification {
+  position: fixed;
+  top: -9999;
+  left: -9999;
+  z-index: -9999;
+  display: inline-block;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  background-color: rgba(0,0,0,0.8);
+  border-radius: 30px;
+  padding: 30px;
+  &__icon {
+    padding-bottom: 15px;
+    svg {
+      width: 150px;
+      path {
+        fill: $notificationColor;
+      }
+    }
+  }
+  &__text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 40px;
+    line-height: 1em;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    font-weight: 900;
+    color: $notificationColor;
+    padding-bottom: 15px;
+  }
+  &.animate {
+    top: 50%;
+    left: 50%;
+    z-index: 9999;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(-50%) scale(0);
+    animation-name: animateNotification;
+    animation-duration: 1.5s;
+    animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+    animation-iteration-count: once;
+  }
+}
+
+@keyframes animateNotification {
+  0% {
+    transform: translateY(-50%) translateX(-50%) scale(0);
+    opacity: 1;
+  }
+  98% {
+    transform: translateY(-50%) translateX(-50%) scale(2);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50%) translateX(-50%) scale(5);
+    opacity: 0;
+  }
+}

@@ -2,6 +2,7 @@ import {
   ADD_ENTRY, ADD_ENTRY_SUCCESS, ADD_ENTRY_FAIL,
   FETCH_ENTRIES, FETCH_ENTRIES_SUCCESS, FETCH_ENTRIES_FAIL,
   AUTH_SIGNIN, AUTH_SIGNIN_SUCCESS, AUTH_SIGNIN_FAIL, AUTH_SIGNOUT,
+  SHOW_NOTIFICATION, HIDE_NOTIFICATION,
 } from '../actions';
 
 const initialState = {
@@ -12,6 +13,8 @@ const initialState = {
   },
   scores: [],
   redirect: false,
+  notify: false,
+  notification: "",
 };
 
 function appReducer(state = initialState, action) {
@@ -62,6 +65,17 @@ function appReducer(state = initialState, action) {
           user: {},
         }
       });
+    case SHOW_NOTIFICATION:
+      return Object.assign({}, state, {
+        notify: true,
+        notification: action.text,
+      });
+    case HIDE_NOTIFICATION:
+      return Object.assign({}, state, {
+        notify: false,
+        notification: "",
+      });
+
     default:
       return state;
   }

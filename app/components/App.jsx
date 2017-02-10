@@ -12,12 +12,13 @@ import Login from './Login';
 import styles from './styles.scss';
 
 import Logo from './Logo';
+import Notification from './Notification';
 
 class App extends React.Component {
 
   render() {
 
-    const { auth, leaderboard, redirect, redirectTo } = this.props;
+    const { auth, leaderboard, redirect, redirectTo, notify, notification } = this.props;
     const initials = auth.isLoggedIn ? `${auth.user.firstName[0]}${auth.user.lastName[0]}` : '?';
 
     return (
@@ -47,6 +48,11 @@ class App extends React.Component {
           </figure>
         }
 
+        {notify &&
+          <Notification text={notification} />
+        }
+
+
         <section className="content">
           <Route exact path="/" component={Leaderboard} />
           <Route exact path="/" component={AddEntry} />
@@ -67,6 +73,8 @@ const mapStateToProps = state => ({
   leaderboard: state.leaderboard,
   redirect: state.redirect,
   rediretTo: state.redirectTo,
+  notify: state.notify,
+  notification: state.notification,
 });
 
 export default connect(mapStateToProps)(App);
