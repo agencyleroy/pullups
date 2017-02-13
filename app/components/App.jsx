@@ -26,7 +26,7 @@ class App extends React.Component {
         <Helmet
           titleTemplate={"Pullups challenge - %s"}
           meta={[
-            {name: "description", content: "Hee" }
+            {name: "description", content: "Expect the Unexpected." }
           ]}
         />
 

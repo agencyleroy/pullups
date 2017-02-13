@@ -9,6 +9,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import App from './components/App';
 import appReducer from './reducers';
 import { api } from './lib/api';
+import queryString from 'query-string';
+
 
 // REDUX
 import { addEntry, fetchEntries, signOut, signIn, confirmSignIn } from './actions';
@@ -23,7 +25,8 @@ api.on('unauthorized', () => {
   //store.dispatch(signOut());
 });
 
-const queryToken = new URLSearchParams(window.location.search).get('token');
+const parsed = queryString.parse(location.search)
+const queryToken = _.has(parsed, 'token') ? parsed.token : null;
 const storedToken = window.sessionStorage.getItem('token');
 const token = queryToken || storedToken;
 store.dispatch(signIn(token));
