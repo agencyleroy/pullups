@@ -31,8 +31,10 @@ class Login extends React.Component {
         {auth.isLoggedIn &&
           <Redirect to="/" />
         }
-        <h4 className="login__title">Login to get results</h4>
-        <button onClick={this.login}>Login</button>
+        <h4 className="login__title">Are you a winner or a loser?</h4>
+        <p>Are you hungry enough? Will you set standards that others will be measured by?</p>
+        <p>The majority will hate you for your success. Your success will make them feel small and insufficient. It will remind them of how they could’ve done what you did but they failed and never tried again. Many of us never realise our greatness. You are the star of your show and you will determine if your life is a box-office hit or flop. Do the job right or don’t do it at all.</p>
+        <p><button onClick={this.login}>Login</button></p>
         <Route exact path="/login/callback" render={() => {
           return <h1>Callback</h1>;
         }} />
