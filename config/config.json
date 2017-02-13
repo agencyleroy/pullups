@@ -9,10 +9,10 @@
   },
   "production": {
     "app": {
-      "host": "http://pullups.leroy.io"
+      "host": "http://leaderboard.leroy.io"
     },
     "api": {
-      "host": "http://pullups.leroy.io"
+      "host": "http://leaderboard.leroy.io"
     }
   }
 }
