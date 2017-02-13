@@ -2,7 +2,6 @@ import React from 'react';
 import CSSModules from 'react-css-modules';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux'
-import { Match, Miss, Link, Redirect } from 'react-router';
 import _ from 'lodash';
 import moment from 'moment';
 

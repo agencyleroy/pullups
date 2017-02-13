@@ -27,7 +27,7 @@ class AddEntry extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth.user
+  user: state.app.auth.user
 });
 
 export default connect(mapStateToProps, null)(AddEntry);

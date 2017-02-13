@@ -69,12 +69,12 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-  leaderboard: state.leaderboard,
-  redirect: state.redirect,
-  rediretTo: state.redirectTo,
-  notify: state.notify,
-  notification: state.notification,
+  auth: state.app.auth,
+  leaderboard: state.app.leaderboard,
+  redirect: state.app.redirect,
+  rediretTo: state.app.redirectTo,
+  notify: state.app.notify,
+  notification: state.app.notification,
 });
 
 export default connect(mapStateToProps)(App);

@@ -37,7 +37,7 @@ const getTopTenEntries = (entries, type) => {
 const mapStateToProps = (state) => {
   console.log(state);
   return {
-    scores: getTopTenEntries(state.scores, 'pullup')
+    scores: getTopTenEntries(state.app.scores, 'pullup')
   };
 };
 
